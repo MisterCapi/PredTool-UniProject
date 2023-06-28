@@ -61,9 +61,9 @@ def put_stats_on_image(stats):
         put_text_on_img(str(stat[5]), 1250, 210 + i*180 + split_distance)
         # Hero WR / Total matches
         put_text_on_img(str(stat[6]), 1600, 210 + i*180 + split_distance-10)
-        put_text_on_img('Matches: ' + str(stat[8]), 1600, 210 + i*180 + split_distance + 30, small=True)
-        # Hero KDA ratio
-        put_text_on_img(str(stat[7]), 1750, 210 + i*180 + split_distance)
+        put_text_on_img('Matches: ' + str(stat[7]), 1600, 210 + i*180 + split_distance + 30, small=True)
+        # # Hero KDA ratio
+        # put_text_on_img(str(stat[7]), 1750, 210 + i*180 + split_distance)
 
     overlay = img.copy()
 

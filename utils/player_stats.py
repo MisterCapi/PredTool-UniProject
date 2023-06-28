@@ -20,13 +20,15 @@ def get_player_statistics(player_name: str, hero_name: str):
     player_stats = requests.get(hrefs[0])
 
     # Extract mmr
+    mmr_value = 0
     soup = BeautifulSoup(player_stats.content, 'html.parser')
     mmr_span = soup.find('span', {'class': 'profile-mmr'})
-    mmr_text = mmr_span.text.strip()
-    if any(c.isalpha() for c in mmr_text.split()[0]):
-        mmr_value = 0
-    else:
-        mmr_value = float(mmr_text.split()[0])
+    if mmr_span:
+        mmr_text = mmr_span.text.strip()
+        if any(c.isalpha() for c in mmr_text.split()[0]):
+            mmr_value = 0
+        else:
+            mmr_value = float(mmr_text.split()[0])
 
     # Extract total games
     soup = BeautifulSoup(player_stats.content, 'html.parser')
@@ -38,7 +40,7 @@ def get_player_statistics(player_name: str, hero_name: str):
     favourite_role = "None"
     for div in profile_divs:
         div_text = div.text.split()
-        if div_text[0] == "Total":
+        if div_text[0] == "Matches":
             total_games = div_text[-1]
         elif div_text[1] == "KDA" and div_text[2] == "Ratio:":
             average_KDA_ratio = div_text[-1]
@@ -46,26 +48,24 @@ def get_player_statistics(player_name: str, hero_name: str):
             average_KDA = ' '.join(div_text[2:])
         elif div_text[1] == 'role:':
             favourite_role = div_text[-1]
-        elif div_text[0] == 'Win':
+        elif div_text[0] == 'Winrate:':
             win_rate = div_text[-1]
 
     # Extract hero stats
     hero_stats = soup.select('table.table-player-hero-stats > tbody > tr')
     hero_wr = '0%'
-    hero_KDA = 0
     hero_games = 0
     for tr in hero_stats:
         tr_text = tr.text.split()
-        if len(tr_text) > 4:
-            tr_text[0] = ' '.join(tr_text[:len(tr_text)-3])
+        if len(tr_text) > 3:
+            tr_text[0] = ' '.join(tr_text[:len(tr_text)-2])
         if hero_name == tr_text[0]:
-            hero_wr = tr_text[-3]
-            hero_KDA = tr_text[-2]
+            hero_wr = tr_text[-2]
             hero_games = tr_text[-1]
             break
 
-    return (mmr_value, win_rate, average_KDA, average_KDA_ratio, total_games, favourite_role, hero_wr, hero_KDA, hero_games)
+    return (mmr_value, win_rate, average_KDA, average_KDA_ratio, total_games, favourite_role, hero_wr, hero_games)
 
 
 if __name__ == '__main__':
-    print(get_player_statistics("AGoRA_FOREVER", 'The Fey'))
+    print(get_player_statistics("MrCapi", 'The Fey'))

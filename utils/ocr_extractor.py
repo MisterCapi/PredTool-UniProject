@@ -18,7 +18,7 @@ def get_hero_name_from_image(image_path: str):
             hero_avatars.append((filename.rsplit('.', 1)[0], image))
 
     # Extract features using the SIFT algorithm
-    sift = cv2.xfeatures2d.SIFT_create()
+    sift = cv2.SIFT_create()
     _, query_descriptors = sift.detectAndCompute(query_image, None)
     hero_avatars_descriptors = []
     for _, image in hero_avatars:
