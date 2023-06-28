@@ -49,21 +49,19 @@ def put_stats_on_image(stats):
         if i > 4:
             split_distance = 120
         # MMR
-        put_text_on_img(str(int(stat[0])), 560, 210 + i*180 + split_distance)
+        put_text_on_img(str(int(stat['overall_stats'].mmr_rating)), 560, 210 + i*180 + split_distance)
         # WR / Total matches
-        put_text_on_img(str(stat[1]), 720, 210 + i*180 + split_distance-10)
-        put_text_on_img('Matches: ' + str(stat[4]), 720, 210 + i*180 + split_distance + 30, small=True)
+        put_text_on_img(str(stat['overall_stats'].win_rate), 720, 210 + i*180 + split_distance-10)
+        put_text_on_img('Matches: ' + str(stat['overall_stats'].total_games), 720, 210 + i*180 + split_distance + 30, small=True)
         # KDA
-        put_text_on_img(str(stat[2]), 920, 210 + i*180 + split_distance)
+        put_text_on_img(str(stat['overall_stats'].average_kda), 920, 210 + i*180 + split_distance)
         # KDA ratio
-        put_text_on_img(str(stat[3]), 1070, 210 + i*180 + split_distance)
+        put_text_on_img(str(stat['overall_stats'].kda_ratio), 1070, 210 + i*180 + split_distance)
         # Top role
-        put_text_on_img(str(stat[5]), 1250, 210 + i*180 + split_distance)
+        put_text_on_img(str(stat['overall_stats'].favourite_role), 1250, 210 + i*180 + split_distance)
         # Hero WR / Total matches
-        put_text_on_img(str(stat[6]), 1600, 210 + i*180 + split_distance-10)
-        put_text_on_img('Matches: ' + str(stat[7]), 1600, 210 + i*180 + split_distance + 30, small=True)
-        # # Hero KDA ratio
-        # put_text_on_img(str(stat[7]), 1750, 210 + i*180 + split_distance)
+        put_text_on_img(str(stat['hero_stats'].win_rate), 1600, 210 + i*180 + split_distance-10)
+        put_text_on_img('Matches: ' + str(stat['hero_stats'].total_games), 1600, 210 + i*180 + split_distance + 30, small=True)
 
     overlay = img.copy()
 

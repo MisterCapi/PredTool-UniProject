@@ -2,6 +2,8 @@ import requests
 import urllib.parse
 from bs4 import BeautifulSoup
 
+from structures.stat_classes import OverallPlayerStats, HeroPlayerStats
+
 
 def get_player_statistics(player_name: str, hero_name: str):
     username = ""
@@ -64,7 +66,14 @@ def get_player_statistics(player_name: str, hero_name: str):
             hero_games = tr_text[-1]
             break
 
-    return (mmr_value, win_rate, average_KDA, average_KDA_ratio, total_games, favourite_role, hero_wr, hero_games)
+    return {'overall_stats': OverallPlayerStats(mmr_rating=mmr_value,
+                                                total_games=total_games,
+                                                average_kda=average_KDA,
+                                                kda_ratio=average_KDA_ratio,
+                                                favourite_role=favourite_role,
+                                                win_rate=win_rate),
+            'hero_stats': HeroPlayerStats(total_games=hero_games,
+                                          win_rate=hero_wr)}
 
 
 if __name__ == '__main__':
