@@ -42,7 +42,6 @@ def put_stats_on_image(stats):
     put_text_on_img('Top role', 1250, 65, heading=True)
     put_text_on_img('Hero:', 1450, 65, heading=True)
     put_text_on_img('WR', 1600, 65, heading=True)
-    put_text_on_img('KDA', 1750, 65, heading=True)
 
     for i, stat in enumerate(stats):
         split_distance = 0

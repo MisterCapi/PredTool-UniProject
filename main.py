@@ -18,4 +18,3 @@ for username, hero in zip(usernames, heroes):
     player_stats.append(get_player_statistics(username, hero))
 
 put_stats_on_image(player_stats)
-
