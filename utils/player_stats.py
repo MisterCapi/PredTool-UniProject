@@ -18,7 +18,14 @@ def get_player_statistics(player_name: str, hero_name: str):
     hrefs = [result.get('href') for result in search_results]
     hrefs = ["https://omeda.city" + href for href in hrefs]
     if not hrefs:
-        return 0, '0%', '0 / 0 / 0', '0', '0', '-', '0%', '0', '0'
+        return {'overall_stats': OverallPlayerStats(mmr_rating=0,
+                                                    total_games='0',
+                                                    average_kda='0 / 0 / 0',
+                                                    kda_ratio='0.0',
+                                                    favourite_role='None',
+                                                    win_rate='0%'),
+                'hero_stats': HeroPlayerStats(total_games='0',
+                                              win_rate='0%')}
     player_stats = requests.get(hrefs[0])
 
     # Extract mmr
